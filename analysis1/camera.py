@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 cam1d = np.loadtxt('camera.txt')
 cr = cam1d.reshape(512,512)
