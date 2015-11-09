@@ -14,12 +14,15 @@ fn = 'ds114_sub009_t2r1.nii'
 anat = nib.load(fn)
 data = anat.get_data()
 
-# first timepoint
-vol1 = data[:,:,:,0]
+n_tps = data.shape[-1]
+stds = np.zeros(n_tps)
+for t in range(n_tps):
+	vol = data[:,:,:,t]
+	stds[t] = np.std(vol)
+	str = 'vol {t}, shape {s}, std={sd}'.format(t=t,s=vol.shape,sd=stds[t])
+	print(str)
 
-# show the central slice
-sl = vol1[:,:,15]
-plt.imshow(sl)
+# plot standard deviations of each volume
+plt.imshow(stds)
 
-# what's with the memmap thing?
-print(np.std(sl))
+
